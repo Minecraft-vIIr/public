@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import uuid
 import json
@@ -12,6 +13,13 @@ from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
 
 # ------------------------ 公共工具函數 ------------------------
+
+def exec_path():
+    if getattr(sys, "frozen", False):
+        application_path = sys.executable
+    elif __file__:
+        application_path = os.path.abspath(__file__)
+    return application_path
 
 def encrypt_message(message, key):
     iv = get_random_bytes(AES.block_size)
@@ -51,7 +59,7 @@ group.add_argument("--send", "-m", action="store_true", help="Act as sender")
 group.add_argument("--receive", "-r", action="store_true", help="Act as receiver")
 parser.add_argument("--input", "-i", help="Input file (required for send mode)")
 parser.add_argument("--to", "-t", help="Target receiver's ID (required for send mode)")
-parser.add_argument("--output", "-o", default=os.path.dirname(os.path.abspath(__file__)),
+parser.add_argument("--output", "-o", default=os.path.dirname(exec_path()),
                     help="Output directory (default: same directory as this script)")
 parser.add_argument("--aeskey", default="c6c1a1f38e0a40dc", help="AES encryption key (16/24/32 chars)")
 args = parser.parse_args()
