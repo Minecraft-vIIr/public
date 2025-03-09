@@ -11,6 +11,9 @@ import paho.mqtt.client as mqtt
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
+import functools
+
+print = functools.partial(print, flush=True)
 
 # ------------------------ 公共工具函數 ------------------------
 
