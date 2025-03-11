@@ -30,7 +30,7 @@ def get_file_list(directory, source):
                     rel_path = os.path.relpath(os.path.join(root, file), source)
                     file_list[rel_path] = os.path.join(root, file)
         except Exception as e:
-            print(f"[Error] Unable to read directory {directory}: {e}")
+            print(f"!read {directory}: {e}")
         return file_list
 
 def to_chunks(content, chunksize):
@@ -72,7 +72,7 @@ async def monitor_chunks(fileid, cooldown=10):
                     "to": args.to
                 })
             filestatus[fileid]["lastreact"] = time.time()
-    print("all chunks confirmed. ")
+    print("+all")
 
 # MQTT settings
 BROKER = "mqtt.eclipseprojects.io" # "broker.hivemq.com"
@@ -107,14 +107,14 @@ elif args.receive:
 def on_connect(client, userdata, flags, rc):
     """MQTT connection callback."""
     if rc == 0:
-        print("Connected successfully")
+        print("+connected")
         userdata["connected"] = True
         if args.send:
             client.subscribe(CTRL_TOPIC)
         elif args.receive:
             client.subscribe(TRANS_TOPIC)
     else:
-        print(f"Connection failed with code {rc}")
+        print(f"!connection failed: {rc}")
 
 def on_message(client, userdata, msg):
     """MQTT message callback."""
@@ -131,13 +131,13 @@ def on_message(client, userdata, msg):
                 
                 if message.get("type") == "transack" and message.get("fileid") in pending_req_confirm :
                     pending_req_confirm.remove(message.get("fileid"))
-                    print("Received transack confirmation")
+                    print("+transack")
                 elif message.get("type") == "recvchunk":
                     fileid = message.get("fileid")
                     chunk = message.get("chunk")
 
                     if fileid in filestatus and chunk in filestatus[fileid]["remainchunk"]:
-                        print(f"Receiver received chunk {chunk}")
+                        print(f"+ {chunk}")
                         del filestatus[fileid]["remainchunk"][chunk]
                         filestatus[fileid]["lastreact"] = time.time()
             elif args.receive:
@@ -152,7 +152,7 @@ def on_message(client, userdata, msg):
                         "len": message.get("len"),
                         "chunks": {}
                     }
-                    print(f"Received transreq for file {filestack[fileid]['relfilepath']}")
+                    print(f"transreq: {filestack[fileid]['relfilepath']}")
                     publish_json_message(client, CTRL_TOPIC, {
                         "type": "transack",
                         "fileid": fileid,
@@ -180,13 +180,13 @@ def on_message(client, userdata, msg):
                             with open(save_path, "wb") as f:
                                 for i in range(1, filestack[fileid]["len"] + 1):
                                     f.write(base64.b64decode(filestack[fileid]["chunks"][i].encode()))
-                            print(f"Saved file to {save_path}")
+                            print(f"+saved: {save_path}")
                             del filestack[fileid]
 
         except json.JSONDecodeError:
-            print("Invalid JSON format in received message")
+            print("!JSON")
     else:
-        print("Failed to decrypt message")
+        print("!decrypt")
 
 def publish_json_message(client, topic, json_message):
     """Encrypt and publish a JSON message."""
@@ -199,7 +199,7 @@ pending_req_confirm = []
 async def main():
     global client, pending_req_confirm, filestatus
 
-    print("Connecting to broker")
+    print("+connecting")
     
     userdata = {"connected": False}
     client = mqtt.Client(client_id=uuid.uuid4().hex, userdata=userdata)
@@ -224,7 +224,8 @@ async def main():
             else:
                 filepaths = {os.path.basename(sourcepath): sourcepath}
 
-            for relfilepath in filepaths: # each file
+            for i, relfilepath in enumerate(filepaths): # each file
+                print(f"+sending {relfilepath} {i+1}/{len(filepaths)}")
                 absfilepath = filepaths[relfilepath]
 
                 fileid = uuid.uuid4().hex
@@ -264,7 +265,7 @@ async def main():
                         "from": SENDER_ADDR,
                         "to": args.to
                     })
-                    print(f"Sent chunk {i}")
+                    print(f"+sent: {i}")
                     await asyncio.sleep(0.05)
                 
                 await monitor_chunks(fileid, cooldown=10)
@@ -272,7 +273,6 @@ async def main():
             global RECEIVER_ADDR
             RECEIVER_ADDR = uuid.uuid4().hex
             print(f"Receiver addr: {RECEIVER_ADDR}")
-            print("Receiver is running. Waiting for files...")
 
             while True:
                 await asyncio.sleep(0.1)
@@ -288,5 +288,4 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("Exiting program.")
-
+        print("Exiting...")
