@@ -152,6 +152,12 @@ def on_message(client, userdata, msg):
                         "len": message.get("len"),
                         "chunks": {}
                     }
+
+                    save_path = os.path.join(OUTPUTDIR, filestack[fileid]["relfilepath"])
+                    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                    with open(save_path, "wb") as f:
+                        f.write(b"")
+
                     print(f"transreq: {filestack[fileid]['relfilepath']}")
                     publish_json_message(client, CTRL_TOPIC, {
                         "type": "transack",
@@ -159,6 +165,9 @@ def on_message(client, userdata, msg):
                         "from": RECEIVER_ADDR,
                         "to": message.get("from")
                     })
+
+                    if message.get("len") == 0:
+                        print(f"+saved: {save_path}")
                 elif message.get("type") == "trans":
                     fileid = message.get("fileid")
                     if fileid in filestack:
@@ -176,7 +185,7 @@ def on_message(client, userdata, msg):
 
                         if len(filestack[fileid]["chunks"]) == filestack[fileid]["len"]:
                             save_path = os.path.join(OUTPUTDIR, filestack[fileid]["relfilepath"])
-                            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                            # os.makedirs(os.path.dirname(save_path), exist_ok=True)
                             with open(save_path, "wb") as f:
                                 for i in range(1, filestack[fileid]["len"] + 1):
                                     f.write(base64.b64decode(filestack[fileid]["chunks"][i].encode()))
@@ -206,7 +215,14 @@ async def main():
     client.on_connect = on_connect
     client.on_message = on_message
 
-    client.connect(BROKER, PORT, 60)
+    while True:
+        try:
+            client.connect(BROKER, PORT, 60)
+            break
+        except Exception as e:
+            print(f"!retry")
+            time.sleep(3)
+    
     client.loop_start()
 
     # Wait for connection
