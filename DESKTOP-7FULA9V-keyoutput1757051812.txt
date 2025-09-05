@@ -1,1 +1,1 @@
-[ctrl_l]
+[ctrl_l][esc][esc][esc][esc]www.googlee[backspace].ca[enter]maze[enter]
