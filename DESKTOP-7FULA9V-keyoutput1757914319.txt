@@ -1,1 +1,1 @@
-[down][down][down][down][down][down][down]`[left][left][up][up][down]bechang[shift_r]@g.puichoi[backspace][backspace]ing.edu.mo[enter][<97>][<105>][<104>][<97>][<96>][<104>][<97>][<101>][esc][esc][backspace]
+[down][down][down][down][down][down][down]`[left][left][up][up][down]bechang[shift_r]@g.puichoi[backspace][backspace]ing.edu.mo[enter][<97>][<105>][<104>][<97>][<96>][<104>][<97>][<101>][esc][esc][backspace][ctrl_l][ctrl_l][esc][esc][esc]
