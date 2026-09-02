@@ -1,1 +1,1 @@
-[esc][esc][esc][down][down][down][esc][esc]d
+[esc][esc][esc][down][down][down][esc][esc]d[shift_r]<[backspace][shift][shift_r]<[backspace]
