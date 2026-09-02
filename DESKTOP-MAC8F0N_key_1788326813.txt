@@ -1,1 +1,0 @@
-s[ctrl_l] [backspace][backspace][backspace]s12006610[tab]sunn[ctrl_l]sunny0806[enter]local[ctrl_l] [shift][shift][shift][shift][shift]_[down][enter][up][enter][alt_l][tab][ctrl_l][ctrl_l]local[enter][ctrl_l] [enter][esc][alt_l][tab][down]
