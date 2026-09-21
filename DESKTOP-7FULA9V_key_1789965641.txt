@@ -1,1 +1,1 @@
-[cmd][cmd][cmd][cmd]r[cmd][esc]
+[cmd][cmd][cmd][cmd]r[cmd][esc][right][right]
