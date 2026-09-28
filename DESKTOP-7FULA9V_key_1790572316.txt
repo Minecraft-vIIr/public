@@ -1,1 +1,1 @@
-[shift][enter]  [right]
+[shift][enter]  [right][right]
