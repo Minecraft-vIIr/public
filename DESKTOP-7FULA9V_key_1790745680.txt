@@ -1,1 +1,1 @@
-[enter][enter][esc][esc][esc][esc][down][down][down][down][down][down]
+[enter][enter][esc][esc][esc][esc][down][down][down][down][down][down][esc][esc][esc]d
