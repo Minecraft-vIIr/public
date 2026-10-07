@@ -1,1 +1,1 @@
-[esc][esc][alt_l][tab]
+[esc][esc][alt_l][tab][esc][esc]
