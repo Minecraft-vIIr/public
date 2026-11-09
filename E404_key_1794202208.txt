@@ -1,1 +1,1 @@
-[enter][esc]
+[enter][esc][down]
