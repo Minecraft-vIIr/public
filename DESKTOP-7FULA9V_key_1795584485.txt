@@ -1,1 +1,1 @@
-[down][down][alt_l][f13][esc][esc][esc]
+[down][down][alt_l][f13][esc][esc][esc][down]
